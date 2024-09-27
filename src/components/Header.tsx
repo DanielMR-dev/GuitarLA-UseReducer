@@ -1,9 +1,10 @@
-import { useMemo } from "react"
+import { useMemo, Dispatch } from "react"
 import type { CartItem, Guitar } from "../types"
+import type { CartActions } from "../reducers/cart-reducer"
 
 type HeaderProps = {
     cart: CartItem[]
-    removeFromCart: (id: Guitar['id'] ) => void
+    dispatch: Dispatch<CartActions>
     decreaseQuantity: (id: Guitar['id'] ) => void
     increaseQuantity: (id: Guitar['id'] ) => void
     clearCart: () => void
@@ -13,7 +14,7 @@ type HeaderProps = {
 
 export default function Header({
         cart, 
-        removeFromCart, 
+        dispatch, 
         decreaseQuantity, 
         increaseQuantity, 
         clearCart
@@ -88,7 +89,7 @@ export default function Header({
                                                         <button
                                                             className="btn btn-danger"
                                                             type="button"
-                                                            onClick={() => removeFromCart(guitar.id)}
+                                                            onClick={() => dispatch({type: 'remove-from-cart', payload: {id: guitar.id}})}
                                                         >
                                                             X
                                                         </button>
